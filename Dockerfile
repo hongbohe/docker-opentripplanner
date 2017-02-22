@@ -21,8 +21,8 @@ RUN chmod 755 /usr/local/bin/*
 
 EXPOSE 8080
 
-ENTRYPOINT mkdir /data && mkdir -p /tmp/otpdatafiles && cd /tmp/otpdatafiles && \
-     git clone https://github.com/hongbohe/docker-opentripplanner && \
-     mv /tmp/otpdatafiles/docker-opentripplanner/data/* /data/ && \
+ENTRYPOINT mkdir -p /data && mkdir -p /tmp/otpdatafiles && cd /tmp/otpdatafiles && \
+     git clone https://github.com/hongbohe/docker-opentripplanner.git && \
+     cp /tmp/otpdatafiles/docker-opentripplanner/data/* /data/ && \
      cd / && rm -Rf /tmp/otpdatafiles && \
      /usr/local/bin/otp --build /data --inMemory
