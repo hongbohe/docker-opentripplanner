@@ -37,7 +37,6 @@ EXPOSE 8080
 
 ENTRYPOINT /opt/main.sh  &&  \
                                /usr/local/bin/otp --build /opt/dest && \
-                               /opt/s3cmd/s3cmd --config=/.s3cfg del ${SRC_S3}/Graph.obj && \
                                /opt/s3cmd/s3cmd --config=/.s3cfg put /opt/dest/Graph.obj ${SRC_S3}
 
 

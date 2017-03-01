@@ -55,6 +55,21 @@ if [ "${cmd}" != "interactive" ]; then
   if [ "${cmd}" = "sync-local-to-s3" ]; then
       ${S3CMD_PATH} --config=/.s3cfg sync /opt/src/ ${DEST_S3}
   fi
+
+  #
+  # download-gtfs-osm - download gtfs and osm from s3 to local
+  #
+  if [ "${cmd}" = "download-gtfs-osm" ]; then
+      ${S3CMD_PATH} --config=/.s3cfg sync --exclude '*.obj' ${SRC_S3} /opt/dest/
+  fi
+
+  #
+  # download-graph - download graph object from s3 to local
+  #
+  if [ "${cmd}" = "download-graph" ]; then
+     ${S3CMD_PATH} --config=/.s3cfg sync --include '*.obj' ${SRC_S3} /opt/dest/
+  fi
+	
 else
   # Copy file over to the default location where S3cmd is looking for the config file
   cp /.s3cfg /root/
