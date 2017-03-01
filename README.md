@@ -20,7 +20,7 @@ the latest stable release.
 
     AWS_KEY=<YOUR AWS KEY>
     AWS_SECRET=<YOUR AWS SECRET>
-    BUCKET=s3://your-public-bucket/
+    BUCKET=s3://your-public-bucket
     
     docker run \
     --env aws_key=${AWS_KEY} \
@@ -39,7 +39,7 @@ the latest stable release.
 
     AWS_KEY=<YOUR AWS KEY>
     AWS_SECRET=<YOUR AWS SECRET>
-    BUCKET=s3://your-public-bucket/
+    BUCKET=s3://your-public-bucket
 
     docker run \
     --env aws_key=${AWS_KEY} \
