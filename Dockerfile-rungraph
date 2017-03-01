@@ -36,4 +36,4 @@ RUN mkdir /opt/dest
 EXPOSE 8080
 
 ENTRYPOINT /opt/main.sh  &&  \
-                               /usr/local/bin/otp  --graphs opt/  --router dest  --server  
+           /usr/local/bin/otp  --graphs opt/  --router dest  --server  
