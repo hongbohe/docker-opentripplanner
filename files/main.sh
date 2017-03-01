@@ -3,7 +3,7 @@
 #
 # main entry point to run s3cmd
 #
-S3CMD_PATH=/opt/s3cmd/s3cmd
+S3CMD_PATH=s3cmd
 
 #
 # Check for required parameters
@@ -60,14 +60,14 @@ if [ "${cmd}" != "interactive" ]; then
   # download-gtfs-osm - download gtfs and osm from s3 to local
   #
   if [ "${cmd}" = "download-gtfs-osm" ]; then
-      ${S3CMD_PATH} --config=/.s3cfg sync --exclude '*.obj' ${SRC_S3} /opt/dest/
+      ${S3CMD_PATH} --config=/.s3cfg sync --include-from /opt/files.include ${SRC_S3} /opt/dest/
   fi
 
   #
   # download-graph - download graph object from s3 to local
   #
   if [ "${cmd}" = "download-graph" ]; then
-     ${S3CMD_PATH} --config=/.s3cfg sync --include '*.obj' ${SRC_S3} /opt/dest/
+     ${S3CMD_PATH} --config=/.s3cfg get ${SRC_S3}/Graph.obj.xz /opt/dest/Graph.obj.xz
   fi
 	
 else
