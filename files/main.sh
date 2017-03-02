@@ -38,7 +38,7 @@ if [ "${s3_host_base}" != "" ]; then
   echo "host_base = ${s3_host_base}" >> /.s3cfg
 fi
 
-# Chevk if we want to run in interactive mode or not
+# Check if we want to run in interactive mode or not
 if [ "${cmd}" != "interactive" ]; then
 
   #
@@ -60,14 +60,14 @@ if [ "${cmd}" != "interactive" ]; then
   # download-gtfs-osm - download gtfs and osm from s3 to local
   #
   if [ "${cmd}" = "download-gtfs-osm" ]; then
-      ${S3CMD_PATH} --config=/.s3cfg sync --include-from /opt/files.include ${SRC_S3} /opt/dest/
+      ${S3CMD_PATH} --config=/.s3cfg sync --exclude-from /opt/files.exclude ${SRC_S3} /opt/dest/
   fi
 
   #
   # download-graph - download graph object from s3 to local
   #
   if [ "${cmd}" = "download-graph" ]; then
-     ${S3CMD_PATH} --config=/.s3cfg get ${SRC_S3}/Graph.obj.xz /opt/dest/Graph.obj.xz
+     ${S3CMD_PATH} --config=/.s3cfg get ${SRC_S3}/Graph.obj.xz /opt/dest/
   fi
 	
 else

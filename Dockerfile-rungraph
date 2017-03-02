@@ -1,5 +1,5 @@
 FROM hongbohe/docker-opentripplanner-buildgraph:1.1
 
 ENTRYPOINT /opt/main.sh  &&  \
-          xz -d /opt/dest/Graph.obj.xz && \
+           xz -df /opt/dest/Graph.obj.xz && \
            /usr/local/bin/otp  --graphs opt/  --router dest  --server  

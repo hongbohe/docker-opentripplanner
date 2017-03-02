@@ -2,8 +2,7 @@ FROM maven:3-jdk-8
 
 MAINTAINER Go About <tech@goabout.com>
 
-ENV BRANCH=master \
-    JAVA_MX=1G
+ENV JAVA_MX=1G
 
 RUN apt-get -yqq update && \
     apt-get -yq install s3cmd xzip &&\
@@ -11,17 +10,16 @@ RUN apt-get -yqq update && \
     cd /tmp/build && \
     wget --progress dot:mega "https://s3.amazonaws.com/maven.conveyal.com/org/opentripplanner/otp/1.0.0/otp-1.0.0-shaded.jar" && \
     mkdir -p /usr/local/share/java && \
-    mv otp-*shaded.jar /usr/local/share/java/otp.jar
+    mv otp-*shaded.jar /usr/local/share/java/otp.jar && \
+    rm -r /tmp/build
     
 COPY otp /usr/local/bin/
 COPY files/s3cfg /opt/.s3cfg
 COPY files/main.sh /opt/main.sh
-COPY files/files.include /opt/files.include
+COPY files/files.exclude /opt/files.exclude
 
 RUN chmod 755 /usr/local/bin/*
 RUN chmod 755 /opt/main.sh
-RUN chmod 755 /opt/.s3cfg
-RUN chmod 755 /opt/files.include
 
 # Folders for s3cmd optionations
 RUN mkdir /opt/src
@@ -31,7 +29,5 @@ EXPOSE 8080
 
 ENTRYPOINT /opt/main.sh  &&  \
            /usr/local/bin/otp --build /opt/dest && \
-	   xz -v /opt/dest/Graph.obj && \
+	   xz -vf /opt/dest/Graph.obj && \
            s3cmd --config=/.s3cfg put /opt/dest/Graph.obj.xz ${SRC_S3}
-
-
