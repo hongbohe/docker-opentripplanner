@@ -14,7 +14,7 @@ the latest stable release.
 
     docker build \
         -t docker-opentripplanner-buildgraph \
-        -f Dockerfile-buildGraph .
+        -f Dockerfile-buildgraph .
         
 ## Step 2 Run the image which is created in Step 1 :
 
@@ -33,7 +33,7 @@ the latest stable release.
 
     docker build \
         -t docker-opentripplanner-rungraph \
-        -f Dockerfile-runGraph .
+        -f Dockerfile-rungraph .
 
 ## Step 4 Run the image which is created in Step 3 :
 
