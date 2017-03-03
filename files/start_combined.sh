@@ -78,4 +78,14 @@ fi
 #
 # Finished operations
 #
-echo "Finished s3cmd operations"
+echo "Finished s3cmd operations, starting runtime"
+
+if[ "${cmd}" = "download-gtfs-osm" ]; then
+  /usr/local/bin/otp --build /opt/dest
+  xz -vf /opt/dest/Graph.obj 
+  s3cmd --config=/.s3cfg put /opt/dest/Graph.obj.xz ${SRC_S3}
+else
+  xz -df /opt/dest/Graph.obj.xz
+  /usr/local/bin/otp  --graphs opt/  --router dest  --server
+fi
+

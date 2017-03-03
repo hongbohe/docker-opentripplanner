@@ -12,14 +12,14 @@ RUN apt-get -yqq update && \
     mkdir -p /usr/local/share/java && \
     mv otp-*shaded.jar /usr/local/share/java/otp.jar && \
     rm -r /tmp/build
-    
+
 COPY otp /usr/local/bin/
 COPY files/s3cfg /opt/.s3cfg
-COPY files/main.sh /opt/main.sh
+COPY files/start_combined.sh /opt/start_combined.sh
 COPY files/files.exclude /opt/files.exclude
 
 RUN chmod 755 /usr/local/bin/*
-RUN chmod 755 /opt/main.sh
+RUN chmod 755 /opt/start_combined.sh
 
 # Folders for s3cmd optionations
 RUN mkdir /opt/src
@@ -27,7 +27,4 @@ RUN mkdir /opt/dest
 
 EXPOSE 8080
 
-ENTRYPOINT /opt/main.sh  &&  \
-           /usr/local/bin/otp --build /opt/dest && \
-	   xz -vf /opt/dest/Graph.obj && \
-           s3cmd --config=/.s3cfg put /opt/dest/Graph.obj.xz ${SRC_S3}
+ENTRYPOINT /opt/start_combined.sh

@@ -13,8 +13,7 @@ the latest stable release.
 ## Step 1 Create an image, download GTFS and OSM files from AWS S3 bucket, generate a graph and upload the graph to S3 bucket :
 
     docker build \
-        -t docker-opentripplanner-buildgraph \
-        -f Dockerfile-buildGraph .
+        -t docker-opentripplanner-buildgraph .
         
 ## Step 2 Run the image which is created in Step 1 :
 
@@ -32,8 +31,7 @@ the latest stable release.
 ## Step 3 Create an image, download Graph.obj which is generated in Step 2 :
 
     docker build \
-        -t docker-opentripplanner-rungraph \
-        -f Dockerfile-runGraph .
+        -t docker-opentripplanner-rungraph .
 
 ## Step 4 Run the image which is created in Step 3 :
 
