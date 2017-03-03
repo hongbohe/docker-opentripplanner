@@ -12,8 +12,7 @@ the latest stable release.
 
 ## Step 1 Create an image, download GTFS and OSM files from AWS S3 bucket, generate a graph and upload the graph to S3 bucket :
 
-    docker build \
-        -t docker-opentripplanner-buildgraph .
+    docker build -t docker-opentripplanner-withgraph .
         
 ## Step 2 Run the image which is created in Step 1 :
 
@@ -26,14 +25,9 @@ the latest stable release.
     --env aws_secret=${AWS_SECRET} \
     --env cmd=download-gtfs-osm \
     --env SRC_S3=${BUCKET} \
-    docker-opentripplanner-buildgraph
+    docker-opentripplanner-withgraph
 
-## Step 3 Create an image, download Graph.obj which is generated in Step 2 :
-
-    docker build \
-        -t docker-opentripplanner-rungraph .
-
-## Step 4 Run the image which is created in Step 3 :
+## Step 3 Run the image with the graph which is created in Step 2 :
 
     AWS_KEY=<YOUR AWS KEY>
     AWS_SECRET=<YOUR AWS SECRET>
@@ -45,7 +39,7 @@ the latest stable release.
     --env cmd=download-graph \
     --env SRC_S3=${BUCKET} \
     -p 8080:8080 \
-    docker-opentripplanner-rungraph
+    docker-opentripplanner-withgraph
 
 
 * After the graph has been built, the planner is available at port 8080.

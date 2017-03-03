@@ -42,31 +42,16 @@ fi
 if [ "${cmd}" != "interactive" ]; then
 
   #
-  # sync-s3-to-local - copy from s3 to local
-  #
-  if [ "${cmd}" = "sync-s3-to-local" ]; then
-      echo ${src-s3}
-      ${S3CMD_PATH} --config=/.s3cfg  sync ${SRC_S3} /opt/dest/
-  fi
-
-  #
-  # sync-local-to-s3 - copy from local to s3
-  #
-  if [ "${cmd}" = "sync-local-to-s3" ]; then
-      ${S3CMD_PATH} --config=/.s3cfg sync /opt/src/ ${DEST_S3}
-  fi
-
-  #
   # download-gtfs-osm - download gtfs and osm from s3 to local
   #
-  if [ "${cmd}" = "download-gtfs-osm" ]; then
+  if [ "${cmd}" = "build-graph" ]; then
       ${S3CMD_PATH} --config=/.s3cfg sync --exclude-from /opt/files.exclude ${SRC_S3} /opt/dest/
   fi
 
   #
   # download-graph - download graph object from s3 to local
   #
-  if [ "${cmd}" = "download-graph" ]; then
+  if [ "${cmd}" = "run-graph" ]; then
      ${S3CMD_PATH} --config=/.s3cfg get ${SRC_S3}/Graph.obj.xz /opt/dest/
   fi
 	
@@ -80,7 +65,7 @@ fi
 #
 echo "Finished s3cmd operations, starting runtime"
 
-if[ "${cmd}" = "download-gtfs-osm" ]; then
+if [ "${cmd}" = "build-graph" ]; then
   /usr/local/bin/otp --build /opt/dest
   xz -vf /opt/dest/Graph.obj 
   s3cmd --config=/.s3cfg put /opt/dest/Graph.obj.xz ${SRC_S3}
